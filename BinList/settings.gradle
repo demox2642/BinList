@@ -14,11 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BinList"
 include ':app'
-
-include ':domain:search'
-include ':domain:history'
-include ':data:search'
-include ':data:history'
+include ':presentation:base-ui'
 include ':presentation:search'
 include ':presentation:history'
-include ':presentation:base-ui'
+include ':data:database'
+include ':data:search'
+include ':data:history'
+include ':domain:search'
+include ':domain:history'
