@@ -10,7 +10,7 @@ android {
     compileSdk = Config.compileSdk
 
     defaultConfig {
-        applicationId "com.tsrttur.testapp"
+        applicationId "com.demox.binlist"
         minSdk  = Config.minSdk
         targetSdk  = Config.targetSdkVersion
         versionCode  = Config.versionCode

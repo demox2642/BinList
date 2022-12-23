@@ -1,3 +1,5 @@
+
+
 object Dependencies {
 
     object Android {
@@ -12,14 +14,13 @@ object Dependencies {
             const val tooling = "androidx.compose.ui:ui-tooling:$version"
             const val icons = "androidx.compose.material:material-icons-core:$version"
             const val composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:$version"
+            const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
         }
     }
 
     object ViewModel {
-        private const val version = "0.7.1"
-        const val core = "com.adeo:kviewmodel:$version"
-        const val compose = "com.adeo:kviewmodel-compose:$version"
-        const val odyssey = "com.adeo:kviewmodel-odyssey:$version"
+        private const val version = "2.3.1"
+        const val viewmodelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
     }
 
     object Kotlin {
@@ -53,5 +54,13 @@ object Dependencies {
         private const val version = "2.42"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val hiltCompiler = "com.google.dagger:hilt-compiler:$version"
+        const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:1.0.0"
+    }
+
+    object Network {
+        private const val version = "2.5.0"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val retrofitConvertor = "com.squareup.retrofit2:converter-gson:$version"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
 }

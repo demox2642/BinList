@@ -1,4 +1,4 @@
-package com.demox.binlist.ui.theme
+package com.demox.binlist.ui.theme // ktlint-disable filename
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
