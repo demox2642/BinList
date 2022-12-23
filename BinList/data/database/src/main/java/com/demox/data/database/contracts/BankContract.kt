@@ -9,5 +9,6 @@ object BankContract {
         const val NAME = "name"
         const val PHONE = "phone"
         const val URL = "url"
+        const val TOWN = "town"
     }
 }

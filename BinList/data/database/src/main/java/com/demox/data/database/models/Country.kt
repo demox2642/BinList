@@ -11,20 +11,20 @@ import com.demox.data.database.contracts.CountryContract
 data class Country(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = CountryContract.Colums.ID)
-    val id: Long,
+    val id: Long? = null,
     @ColumnInfo(name = CountryContract.Colums.NUMERIC)
-    val numeric: Long,
+    val numeric: Long?,
     @ColumnInfo(name = CountryContract.Colums.ALPHA2)
-    val alpha2: String,
+    val alpha2: String?,
     @ColumnInfo(name = CountryContract.Colums.NAME)
     val name: String,
     @ColumnInfo(name = CountryContract.Colums.EMOJI)
-    val emoji: String,
+    val emoji: String?,
     @ColumnInfo(name = CountryContract.Colums.CURRENCY)
     val currency: String,
     @ColumnInfo(name = CountryContract.Colums.LATITUDE)
-    val latitude: Int,
+    val latitude: Int?,
     @ColumnInfo(name = CountryContract.Colums.LONGITUDE)
-    val longitude: Int
+    val longitude: Int?
 
 )

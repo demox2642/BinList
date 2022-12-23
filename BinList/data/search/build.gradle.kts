@@ -48,5 +48,8 @@ dependencies {
     implementation(Dependencies.Network.retrofitConvertor)
     implementation(Dependencies.Di.hilt)
     kapt(Dependencies.Di.hiltCompiler)
+    implementation(Dependencies.Room.room)
+    implementation(Dependencies.Room.roomKTX)
+    kapt(Dependencies.Room.roomCompiler)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 }

@@ -14,9 +14,16 @@ interface BinListDao {
     suspend fun insertBinList(binList: BinList)
 
     @Query(
-        "SELECT * FROM ${BinListContract.TABLE_NAME} WHERE ${BinListContract.Colums.ID}=:countryId"
+        "SELECT * FROM ${BinListContract.TABLE_NAME} WHERE ${BinListContract.Colums.ID}=:binListId"
     )
-    suspend fun getBinListInfo(countryId: Long): BinListInfo
+    suspend fun getBinListInfo(binListId: Long): BinListInfo?
+
+    @Query(
+        "SELECT * \n" +
+            "    FROM    ${BinListContract.TABLE_NAME}\n" +
+            "    WHERE   ${BinListContract.Colums.ID} = (SELECT MAX(${BinListContract.Colums.ID})  FROM ${BinListContract.TABLE_NAME})"
+    )
+    suspend fun getLastBinListInfo(): BinListInfo
 
     @Query(
         "SELECT * FROM ${BinListContract.TABLE_NAME} "

@@ -26,7 +26,7 @@ import java.util.*
 data class BinList(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = BinListContract.Colums.ID)
-    val id: Long,
+    val id: Long? = null,
     @ColumnInfo(name = BinListContract.Colums.DATE)
     val date: Long = getDateTime(),
     @ColumnInfo(name = BinListContract.Colums.BANK_ID)
