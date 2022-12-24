@@ -1,4 +1,4 @@
-package com.demox.binlist
+package com.demox.presentation.search
 
 import org.junit.Assert.*
 import org.junit.Test

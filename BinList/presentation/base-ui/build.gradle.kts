@@ -47,5 +47,9 @@ dependencies {
     implementation(Dependencies.Android.Compose.tooling)
     implementation(Dependencies.Android.Compose.icons)
     implementation(Dependencies.Android.Compose.composeMaterialIconsExtended)
+    implementation("androidx.test.ext:junit-ktx:1.1.4")
+    implementation("androidx.test:monitor:1.5.0")
+    testImplementation("junit:junit:4.12")
     androidTestImplementation("junit:junit:4.12")
+
 }

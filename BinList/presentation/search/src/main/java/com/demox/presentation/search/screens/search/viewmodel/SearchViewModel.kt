@@ -18,14 +18,28 @@ class SearchViewModel @Inject constructor(
     private val searchUseCase: GetBinListUseCase
 ) : ViewModel() {
 
+    private val _errorDialogState = MutableStateFlow(false)
+    val errorDialogState = _errorDialogState.asStateFlow()
+
+    private val _binSearchText = MutableStateFlow("")
+    val binSearchText = _binSearchText.asStateFlow()
+
     private val _binInfo = MutableStateFlow<BinInfo?>(null)
     val binInfo = _binInfo.asStateFlow()
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            searchUseCase.getBinList("45717360").collectLatest {
-                Log.e("VM", "$it")
-                _binInfo.value = it
+    fun onBinSearchTextChange(text: String) {
+        _binSearchText.value = text
+    }
+
+    fun searchBinInfo() {
+        if (_binSearchText.value.length < 8) {
+            _errorDialogState.value = true
+        } else {
+            viewModelScope.launch(Dispatchers.IO) {
+                searchUseCase.getBinList(_binSearchText.value).collectLatest {
+                    Log.e("VM", "$it")
+                    _binInfo.value = it
+                }
             }
         }
     }

@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(Dependencies.Di.hilt)
+    testImplementation("junit:junit:4.12")
     kapt(Dependencies.Di.hiltCompiler)
     implementation(Dependencies.Room.room)
     implementation(Dependencies.Room.roomKTX)
