@@ -1,15 +1,18 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.demox.presentation.history"
-    compileSdk = 32
+    compileSdk = Config.compileSdk
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -28,17 +31,32 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.6.10"
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
 }
 
 dependencies {
+    api(project(Modules.Presentation.BASE_UI))
+    api(project(Modules.Domain.SEARCH))
+    api(project(Modules.Data.SEARCH))
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.7.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.4")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    implementation(Dependencies.Android.Compose.ui)
+    implementation(Dependencies.Android.Compose.material)
+    implementation(Dependencies.Android.Compose.runtime)
+    implementation(Dependencies.Android.Compose.icons)
+    implementation(Dependencies.Android.Compose.tooling)
+    implementation(Dependencies.Android.Compose.composeUiToolingPreview)
+    implementation(Dependencies.Android.Compose.composeMaterialIconsExtended)
+
+    implementation(Dependencies.Navigation.composeNavigation)
+    implementation(Dependencies.Di.hilt)
+    implementation(Dependencies.Di.hiltNavigation)
+    implementation("androidx.test:monitor:1.5.0")
+    testImplementation("junit:junit:4.12")
+    kapt(Dependencies.Di.hiltCompiler)
 }

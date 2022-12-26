@@ -59,6 +59,7 @@ dependencies {
 
     implementation(Dependencies.Di.hilt)
     implementation(Dependencies.Di.hiltNavigation)
+    implementation(Dependencies.Navigation.composeNavigation)
     implementation("androidx.test:monitor:1.5.0")
     testImplementation("junit:junit:4.12")
     kapt(Dependencies.Di.hiltCompiler)

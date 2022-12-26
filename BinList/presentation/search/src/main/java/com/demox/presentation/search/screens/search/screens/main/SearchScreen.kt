@@ -1,32 +1,41 @@
-package com.demox.presentation.search.screens.search
+package com.demox.presentation.search.screens.search.screens.main
 
 import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.* // ktlint-disable no-wildcard-imports
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.demox.presentation.base_ui.theme.AppTheme
 import com.demox.presentation.base_ui.view.BinInfoScreen
-import com.demox.presentation.search.screens.search.viewmodel.SearchViewModel
+import com.demox.presentation.search.screens.search.screens.main.viewmodel.SearchViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SearchScreen() {
+fun SearchScreen(navController: NavHostController) {
     val viewModel: SearchViewModel = hiltViewModel()
     val searchText by viewModel.binSearchText.collectAsState()
     val buttonState by viewModel.buttonState.collectAsState()
     val binInfo by viewModel.binInfo.collectAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-    Column {
-        Text("Search Screen")
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
         TextField(
             modifier = Modifier
                 .padding(16.dp)
@@ -62,7 +71,10 @@ fun SearchScreen() {
             ),
             enabled = buttonState,
             shape = RoundedCornerShape(10.dp),
-            onClick = { viewModel.searchBinInfo() }
+            onClick = {
+                keyboardController?.hide()
+                viewModel.searchBinInfo()
+            }
         ) {
             Text(
                 "Search",

@@ -1,4 +1,4 @@
-package com.demox.presentation.search.screens.search.viewmodel
+package com.demox.presentation.search.screens.search.screens.main.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -31,7 +31,7 @@ class SearchViewModel @Inject constructor(
     val buttonState = _buttonState.asStateFlow()
 
     fun onBinSearchTextChange(text: String) {
-        _binSearchText.value = text
+        _binSearchText.value = text.replace("-", "").replace("*", "").replace("+", "").replace(".", "").replace(",", "").replace(" ", "")
     }
 
     fun searchBinInfo() {
