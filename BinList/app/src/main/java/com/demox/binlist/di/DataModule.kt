@@ -1,8 +1,10 @@
 package com.demox.binlist.di
 
 import com.demox.data.database.Database
+import com.demox.data.history.repository.HistoryRepositoryImpl
 import com.demox.data.search.repository.SearchRepositoryImpl
 import com.demox.data.search.service.SearchService
+import com.demox.domain.history.repository.HistoryRepository
 import com.demox.search.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -23,6 +25,12 @@ class DataModule {
     @Provides
     fun provideSearchRepository(service: SearchService, database: Database): SearchRepository {
         return SearchRepositoryImpl(searchService = service, database = database)
+    }
+
+    @Singleton
+    @Provides
+    fun provideHistoryRepository(database: Database): HistoryRepository {
+        return HistoryRepositoryImpl(database = database)
     }
 
     @Provides

@@ -3,4 +3,5 @@
     <string name="app_name">BinList</string>
     <string name="search">поиск</string>
     <string name="history">история</string>
+    <string name="no_network">Отсутствует интернет соединение. Доступны только данные из истории.</string>
 </resources>

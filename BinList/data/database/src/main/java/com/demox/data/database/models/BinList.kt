@@ -29,6 +29,8 @@ data class BinList(
     val id: Long? = null,
     @ColumnInfo(name = BinListContract.Colums.DATE)
     val date: Long = getDateTime(),
+    @ColumnInfo(name = BinListContract.Colums.BIN_NUM)
+    val binNum: Long,
     @ColumnInfo(name = BinListContract.Colums.BANK_ID)
     val bank_id: Long?,
     @ColumnInfo(name = BinListContract.Colums.BRAND)

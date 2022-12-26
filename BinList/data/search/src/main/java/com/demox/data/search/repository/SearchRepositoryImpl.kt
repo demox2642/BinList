@@ -27,12 +27,13 @@ class SearchRepositoryImpl @Inject constructor(
 
         return flow {
             emit(
-                insertToDataBase(response).let {
+                insertToDataBase(response, bin.toLong()).let {
                     if (it == null) {
                         null
                     } else {
                         BinInfo(
-                            bank_town = it!!.bank.town,
+                            bin_num = it.binList.binNum,
+                            bank_town = it.bank.town,
                             bank_name = it.bank.name,
                             bank_phone = it.bank.phone,
                             bank_url = it.bank.url,
@@ -53,7 +54,7 @@ class SearchRepositoryImpl @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    private suspend fun insertToDataBase(response: Response<ServerResponse>): BinListInfo? {
+    private suspend fun insertToDataBase(response: Response<ServerResponse>, binNum: Long): BinListInfo? {
         var binInfo: BinListInfo? = null
 
         if (response.isSuccessful) {
@@ -90,6 +91,7 @@ class SearchRepositoryImpl @Inject constructor(
             database.withTransaction {
                 database.binListDao().insertBinList(
                     BinList(
+                        binNum = binNum,
                         bank_id = getBankId(content?.bank?.name!!),
                         brand = content.brand,
                         country_id = getCountryId(content.country.name),

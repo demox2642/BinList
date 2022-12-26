@@ -8,6 +8,7 @@ object BinListContract {
 
         const val ID = "id"
         const val DATE = "date"
+        const val BIN_NUM = "bin_num"
         const val BANK_ID = "bank_id"
         const val BRAND = "brand"
         const val COUNTRY_ID = "country"

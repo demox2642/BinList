@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +24,7 @@ import com.demox.presentation.base_ui.theme.AppTheme
 import com.demox.presentation.base_ui.theme.AppTheme.AppTheme
 import com.demox.presentation.base_ui.theme.appDarkColors
 import com.demox.presentation.base_ui.theme.appLightColors
+import com.demox.presentation.history.HistoryScreens
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,21 +43,32 @@ class MainActivity : ComponentActivity() {
             val colors = if (darkTheme) appDarkColors() else appLightColors()
 
             val snackbarHostState = remember { mutableStateOf(SnackbarHostState()) }
+            val network = remember { mutableStateOf(true) }
+            val context = LocalContext.current
+
             connectionManager.connectionLiveData.observe(this) {
                 if (!it) {
+                    network.value = false
                     lifecycleScope.launch {
                         snackbarHostState.value.showSnackbar(
-                            message = "No Network Connection",
+                            message = context.resources.getString(R.string.no_network),
                             duration = SnackbarDuration.Short
                         )
                     }
+                } else {
+                    network.value = true
                 }
             }
 
             AppTheme(colors = colors) {
                 SystemUi(windows = window)
                 Surface(color = MaterialTheme.colors.background) {
-                    MainContent()
+                    if (network.value) {
+                        MainContent()
+                    } else {
+                        HistoryScreens.HistoryMainScreen.route
+                    }
+
                     SnackbarHost(
                         hostState = snackbarHostState.value
                     ) {

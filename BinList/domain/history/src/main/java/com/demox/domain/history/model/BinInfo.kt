@@ -1,7 +1,6 @@
-package com.demox.search.model
+package com.demox.domain.history.model
 
 data class BinInfo(
-    val bin_num: Long,
     val bank_town: String?,
     val bank_name: String?,
     val bank_phone: String?,

@@ -42,8 +42,8 @@ android {
 
 dependencies {
     api(project(Modules.Presentation.BASE_UI))
-    api(project(Modules.Domain.SEARCH))
-    api(project(Modules.Data.SEARCH))
+    api(project(Modules.Domain.HISTORY))
+    api(project(Modules.Data.HISTORY))
 
     implementation(Dependencies.Android.Compose.ui)
     implementation(Dependencies.Android.Compose.material)
