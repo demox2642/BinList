@@ -2,5 +2,23 @@
 <resources>
     <string name="base_ui_next">Next</string>
     <string name="base_ui_back">Back</string>
-    <string name="base_ui_under_develop">данный раздел в разработке</string>
+    <string name="base_ui_under_develop">this section is under development</string>
+    <string name = "permission_title"> Request permissions </string>
+    <string name = "permission_message"> The app needs permission to call the bank. </string>
+    <string name = "permission_conferm_bt"> Allow </string>
+    <string name = "permission_dismiss_bt"> Later </string>
+    <string name = "phone">phone</string>
+    <string name="web_site">Web site</string>
+    <string name="name">name</string>
+    <string name="luhn">LUHN</string>
+    <string name="length">LENGTH</string>
+    <string name="card_number">card number</string>
+    <string name="country">country</string>
+    <string name="prepaid">prepaid</string>
+    <string name="type">type</string>
+    <string name="brand">brand</string>
+    <string name="scheme">scheme / network </string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="bank">bank</string>
 </resources>

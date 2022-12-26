@@ -51,5 +51,5 @@ dependencies {
     implementation("androidx.test:monitor:1.5.0")
     testImplementation("junit:junit:4.12")
     androidTestImplementation("junit:junit:4.12")
-
+    implementation(Dependencies.Other.accompanistPermission)
 }

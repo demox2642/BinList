@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="base_ui_next">Далее</string>
+    <string name="base_ui_back">Назад</string>
+    <string name="base_ui_under_develop">этот раздел находится в разработке</string>
+    <string name = "permission_title"> Запрос разрешений </string>
+    <string name = "permission_message"> Приложению требуется разрешение на вызов банка. </string>
+    <string name = "permission_conferm_bt"> Разрешить </string>
+    <string name = "permission_dismiss_bt"> Позже </string>
+    <string name = "phone">телефон</string>
+    <string name="web_site">Веб-сайт</string>
+    <string name="name">имя</string>
+    <string name="luhn">ЛУН</string>
+    <string name="length">ДЛИНА</string>
+    <string name="card_number">номер карты</string>
+    <string name="country">страна</string>
+    <string name="prepaid">предоплата</string>
+    <string name="type">тип</string>
+    <string name="brand">бренд</string>
+    <string name="scheme">схема/сеть </string>
+    <string name="yes">да</string>
+    <string name="no">нет</string>
+    <string name="bank">банк</string>
+</resources>

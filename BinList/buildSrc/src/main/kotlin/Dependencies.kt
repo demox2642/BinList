@@ -63,4 +63,8 @@ object Dependencies {
         const val retrofitConvertor = "com.squareup.retrofit2:converter-gson:$version"
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
+
+    object Other {
+        const val accompanistPermission = "com.google.accompanist:accompanist-permissions:0.28.0"
+    }
 }
