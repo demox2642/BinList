@@ -14,11 +14,11 @@ data class Bank(
     @ColumnInfo(name = BankContract.Colums.ID)
     val id: Long? = null,
     @ColumnInfo(name = BankContract.Colums.NAME)
-    val name: String,
+    val name: String?,
     @ColumnInfo(name = BankContract.Colums.PHONE)
-    val phone: String,
+    val phone: String?,
     @ColumnInfo(name = BankContract.Colums.URL)
-    val url: String,
+    val url: String?,
     @ColumnInfo(name = BankContract.Colums.TOWN)
-    val town: String
+    val town: String?
 )

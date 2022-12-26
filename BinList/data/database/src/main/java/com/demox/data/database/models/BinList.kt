@@ -42,7 +42,9 @@ data class BinList(
     @ColumnInfo(name = BinListContract.Colums.SHEME)
     val scheme: String,
     @ColumnInfo(name = BinListContract.Colums.TYPE)
-    val type: String
+    val type: String,
+    @ColumnInfo(name = BinListContract.Colums.PREPAID)
+    val prepaid: Boolean
 )
 
 private fun getDateTime(): Long {

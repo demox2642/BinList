@@ -1,10 +1,11 @@
 package com.demox.search.model
 
 data class BinInfo(
-    val bank_town: String,
-    val bank_cityname: String,
-    val bank_cityphone: String?,
-    val bank_cityurl: String?,
+    val bank_town: String?,
+    val bank_name: String?,
+    val bank_phone: String?,
+    val bank_url: String?,
+    val prepaid: Boolean,
     val country_currency: String?,
     val country_latitude: Int?,
     val country_longitude: Int?,

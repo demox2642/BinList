@@ -15,5 +15,6 @@ object BinListContract {
         const val LUHN = "luhn"
         const val SHEME = "scheme"
         const val TYPE = "type"
+        const val PREPAID = "prepaid"
     }
 }

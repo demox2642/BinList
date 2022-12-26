@@ -27,6 +27,9 @@ class SearchViewModel @Inject constructor(
     private val _binInfo = MutableStateFlow<BinInfo?>(null)
     val binInfo = _binInfo.asStateFlow()
 
+    private val _buttonState = MutableStateFlow(true)
+    val buttonState = _buttonState.asStateFlow()
+
     fun onBinSearchTextChange(text: String) {
         _binSearchText.value = text
     }

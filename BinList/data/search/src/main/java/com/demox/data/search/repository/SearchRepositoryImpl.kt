@@ -28,21 +28,26 @@ class SearchRepositoryImpl @Inject constructor(
         return flow {
             emit(
                 insertToDataBase(response).let {
-                    BinInfo(
-                        bank_town = it!!.bank.town,
-                        bank_cityname = it.bank.name,
-                        bank_cityphone = it.bank.phone,
-                        bank_cityurl = it.bank.url,
-                        country_currency = it.country.currency,
-                        country_latitude = it.country.latitude,
-                        country_longitude = it.country.longitude,
-                        country_name = it.country.name,
-                        brand = it.binList.brand,
-                        length = it.binList.length,
-                        luhn = it.binList.luhn,
-                        scheme = it.binList.scheme,
-                        type = it.binList.type
-                    )
+                    if (it == null) {
+                        null
+                    } else {
+                        BinInfo(
+                            bank_town = it!!.bank.town,
+                            bank_name = it.bank.name,
+                            bank_phone = it.bank.phone,
+                            bank_url = it.bank.url,
+                            prepaid = it.binList.prepaid,
+                            country_currency = it.country.currency,
+                            country_latitude = it.country.latitude,
+                            country_longitude = it.country.longitude,
+                            country_name = it.country.name,
+                            brand = it.binList.brand,
+                            length = it.binList.length,
+                            luhn = it.binList.luhn,
+                            scheme = it.binList.scheme,
+                            type = it.binList.type
+                        )
+                    }
                 }
             )
         }.flowOn(Dispatchers.IO)
@@ -73,10 +78,10 @@ class SearchRepositoryImpl @Inject constructor(
                 if (content?.bank?.name?.let { database.bankDao().getBankId(it) } == null) {
                     database.bankDao().insertBank(
                         Bank(
-                            name = content!!.bank.name,
-                            phone = content.bank.phone,
-                            url = content.bank.url,
-                            town = content.bank.city
+                            name = content?.bank?.name,
+                            phone = content?.bank?.phone,
+                            url = content?.bank?.url,
+                            town = content?.bank?.city
                         )
                     )
                 }
@@ -91,8 +96,8 @@ class SearchRepositoryImpl @Inject constructor(
                         length = content.number.length,
                         luhn = content.number.luhn,
                         scheme = content.scheme,
-                        type = content.type
-
+                        type = content.type,
+                        prepaid = content.prepaid
                     )
                 )
             }
