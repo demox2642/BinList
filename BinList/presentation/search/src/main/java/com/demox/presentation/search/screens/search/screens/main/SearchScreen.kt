@@ -13,14 +13,18 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.demox.presentation.base_ui.theme.AppTheme
 import com.demox.presentation.base_ui.view.BinInfoScreen
+import com.demox.presentation.base_ui.view.dialogs.CustomErrorDialog
+import com.demox.presentation.search.R
 import com.demox.presentation.search.screens.search.screens.main.viewmodel.SearchViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -31,6 +35,8 @@ fun SearchScreen(navController: NavHostController) {
     val buttonState by viewModel.buttonState.collectAsState()
     val binInfo by viewModel.binInfo.collectAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val errorDialogState by viewModel.errorDialogState.collectAsState()
+    val noBinDialogState by viewModel.noBin.collectAsState()
 
     Column(
         modifier = Modifier
@@ -91,9 +97,9 @@ fun SearchScreen(navController: NavHostController) {
                 BinInfoScreen(
                     scheme = binInfo!!.scheme,
                     brand = binInfo!!.brand,
-                    type = binInfo!!.type,
+                    type = binInfo!!.type.toString(),
                     prepaid = binInfo!!.prepaid,
-                    country = binInfo!!.country_name,
+                    country = binInfo!!.country_name.toString(),
                     length = binInfo!!.length,
                     lunht = binInfo!!.luhn == true,
                     bankName = binInfo!!.bank_name.toString(),
@@ -103,6 +109,27 @@ fun SearchScreen(navController: NavHostController) {
                     countryLongitude = binInfo!!.country_longitude
                 )
             }
+        }
+        if (noBinDialogState) {
+            Dialog(
+                onDismissRequest = {},
+                content = {
+                    CustomErrorDialog(title = stringResource(id = R.string.error_title), message = stringResource(id = R.string.no_bin).format(searchText)) {
+                        viewModel.noBinDialogDis()
+                    }
+                }
+            )
+        }
+
+        if (errorDialogState) {
+            Dialog(
+                onDismissRequest = {},
+                content = {
+                    CustomErrorDialog(title = stringResource(id = R.string.error_title), message = stringResource(id = R.string.enter_string_error)) {
+                        viewModel.noErrorDialog()
+                    }
+                }
+            )
         }
     }
 }

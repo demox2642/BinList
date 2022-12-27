@@ -15,5 +15,5 @@ interface BankDao {
     @Query(
         "SELECT ${BankContract.Colums.ID} FROM ${BankContract.TABLE_NAME} WHERE ${BankContract.Colums.NAME}=:bankName"
     )
-    suspend fun getBankId(bankName: String): Long?
+    suspend fun getBankId(bankName: String?): Long?
 }

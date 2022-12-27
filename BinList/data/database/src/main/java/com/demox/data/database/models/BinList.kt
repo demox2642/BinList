@@ -34,7 +34,7 @@ data class BinList(
     @ColumnInfo(name = BinListContract.Colums.BANK_ID)
     val bank_id: Long?,
     @ColumnInfo(name = BinListContract.Colums.BRAND)
-    val brand: String,
+    val brand: String?,
     @ColumnInfo(name = BinListContract.Colums.COUNTRY_ID)
     val country_id: Long?,
     @ColumnInfo(name = BinListContract.Colums.LENTH)
@@ -44,7 +44,7 @@ data class BinList(
     @ColumnInfo(name = BinListContract.Colums.SHEME)
     val scheme: String,
     @ColumnInfo(name = BinListContract.Colums.TYPE)
-    val type: String,
+    val type: String?,
     @ColumnInfo(name = BinListContract.Colums.PREPAID)
     val prepaid: Boolean
 )
@@ -61,10 +61,10 @@ data class BinListInfo(
         parentColumn = BinListContract.Colums.COUNTRY_ID,
         entityColumn = CountryContract.Colums.ID
     )
-    val country: Country,
+    val country: Country?,
     @Relation(
         parentColumn = BinListContract.Colums.BANK_ID,
         entityColumn = BankContract.Colums.ID
     )
-    val bank: Bank
+    val bank: Bank?
 )

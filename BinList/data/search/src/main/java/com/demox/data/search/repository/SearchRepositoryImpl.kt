@@ -1,5 +1,6 @@
 package com.demox.data.search.repository
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.demox.data.database.Database
 import com.demox.data.database.models.Bank
@@ -24,7 +25,7 @@ class SearchRepositoryImpl @Inject constructor(
 
     override suspend fun getBinList(bin: String): Flow<BinInfo?> {
         val response = searchService.getBinList(bin = bin)
-
+        Log.e("SearchRepositoryImpl", "response=$response  bin=$bin")
         return flow {
             emit(
                 insertToDataBase(response, bin.toLong()).let {
@@ -33,16 +34,16 @@ class SearchRepositoryImpl @Inject constructor(
                     } else {
                         BinInfo(
                             bin_num = it.binList.binNum,
-                            bank_town = it.bank.town,
-                            bank_name = it.bank.name,
-                            bank_phone = it.bank.phone,
-                            bank_url = it.bank.url,
+                            bank_town = it.bank?.town,
+                            bank_name = it.bank?.name,
+                            bank_phone = it.bank?.phone,
+                            bank_url = it.bank?.url,
                             prepaid = it.binList.prepaid,
-                            country_currency = it.country.currency,
-                            country_latitude = it.country.latitude,
-                            country_longitude = it.country.longitude,
-                            country_name = it.country.name,
-                            brand = it.binList.brand,
+                            country_currency = it.country?.currency,
+                            country_latitude = it.country?.latitude,
+                            country_longitude = it.country?.longitude,
+                            country_name = it.country?.name,
+                            brand = it.binList.brand.toString(),
                             length = it.binList.length,
                             luhn = it.binList.luhn,
                             scheme = it.binList.scheme,
@@ -73,9 +74,7 @@ class SearchRepositoryImpl @Inject constructor(
                         )
                     )
                 }
-            }
 
-            database.withTransaction {
                 if (content?.bank?.name?.let { database.bankDao().getBankId(it) } == null) {
                     database.bankDao().insertBank(
                         Bank(
@@ -86,13 +85,11 @@ class SearchRepositoryImpl @Inject constructor(
                         )
                     )
                 }
-            }
 
-            database.withTransaction {
                 database.binListDao().insertBinList(
                     BinList(
                         binNum = binNum,
-                        bank_id = getBankId(content?.bank?.name!!),
+                        bank_id = getBankId(content?.bank?.name),
                         brand = content.brand,
                         country_id = getCountryId(content.country.name),
                         length = content.number.length,
@@ -112,7 +109,7 @@ class SearchRepositoryImpl @Inject constructor(
         return database.countryDao().getCountryId(name)
     }
 
-    private suspend fun getBankId(name: String): Long? {
+    private suspend fun getBankId(name: String?): Long? {
         return database.bankDao().getBankId(name)
     }
 }

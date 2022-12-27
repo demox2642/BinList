@@ -1,5 +1,6 @@
 package com.demox.binlist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var connectionManager: ConnectionManager
 
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,16 +49,15 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
 
             connectionManager.connectionLiveData.observe(this) {
-                if (!it) {
-                    network.value = false
-                    lifecycleScope.launch {
-                        snackbarHostState.value.showSnackbar(
-                            message = context.resources.getString(R.string.no_network),
-                            duration = SnackbarDuration.Short
-                        )
-                    }
-                } else {
-                    network.value = true
+                network.value = it
+            }
+
+            if (!network.value) {
+                lifecycleScope.launch {
+                    snackbarHostState.value.showSnackbar(
+                        message = context.resources.getString(R.string.no_network),
+                        duration = SnackbarDuration.Short
+                    )
                 }
             }
 

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.demox.presentation.base_ui.R
 import com.demox.presentation.base_ui.theme.AppTheme
-import com.demox.presentation.base_ui.view.dialogs.CustomAllertDialog
+import com.demox.presentation.base_ui.view.dialogs.CustomAlertDialog
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -88,23 +88,33 @@ fun BinInfoScreen(
             Text(text = stringResource(id = R.string.country).uppercase(), fontSize = 18.sp, color = AppTheme.colors.systemTextTertiary)
             Row() {
                 Text(text = country, fontSize = 18.sp, color = AppTheme.colors.systemTextSecondary, fontWeight = FontWeight.Bold)
-                Icon(
-                    Icons.Default.MyLocation,
-                    contentDescription = stringResource(id = R.string.country).uppercase(),
-                    tint = AppTheme.colors.controlGraphBlueActive,
-                    modifier = Modifier
-                        .padding(start = 5.dp)
-                        .clickable(onClick = {
-                            val strUri =
-                                "http://maps.google.com/maps?q=loc:$countryLatitude,$countryLongitude"
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
-                            intent.setClassName(
-                                "com.google.android.apps.maps",
-                                "com.google.android.maps.MapsActivity"
-                            )
-                            context.startActivity(intent)
-                        })
-                )
+                if (countryLatitude == null || countryLongitude == null) {
+                    Icon(
+                        Icons.Default.MyLocation,
+                        contentDescription = stringResource(id = R.string.country).uppercase(),
+                        tint = AppTheme.colors.controlGraphDisable,
+                        modifier = Modifier
+                            .padding(start = 5.dp)
+                    )
+                } else {
+                    Icon(
+                        Icons.Default.MyLocation,
+                        contentDescription = stringResource(id = R.string.country).uppercase(),
+                        tint = AppTheme.colors.controlGraphBlueActive,
+                        modifier = Modifier
+                            .padding(start = 5.dp)
+                            .clickable(onClick = {
+                                val strUri =
+                                    "http://maps.google.com/maps?q=loc:$countryLatitude,$countryLongitude"
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(strUri))
+                                intent.setClassName(
+                                    "com.google.android.apps.maps",
+                                    "com.google.android.maps.MapsActivity"
+                                )
+                                context.startActivity(intent)
+                            })
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -132,19 +142,31 @@ fun BinInfoScreen(
 
             Row() {
                 Text(text = bankUrl, fontSize = 18.sp, color = AppTheme.colors.systemTextSecondary, fontWeight = FontWeight.Bold)
-                Icon(
-                    Icons.Default.Web,
-                    contentDescription = stringResource(id = R.string.web_site).uppercase(),
-                    tint = AppTheme.colors.controlGraphBlueActive,
-                    modifier = Modifier
-                        .padding(start = 5.dp)
-                        .clickable(onClick = {
-                            val url = if (!bankUrl.startsWith("http://") && !bankUrl.startsWith("https://")) "http://$bankUrl" else (bankUrl)
-                            val browserIntent =
-                                Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(browserIntent)
-                        })
-                )
+                if (bankUrl == "null") {
+                    Icon(
+                        Icons.Default.Web,
+                        contentDescription = stringResource(id = R.string.web_site).uppercase(),
+                        tint = AppTheme.colors.controlGraphDisable,
+                        modifier = Modifier
+                            .padding(start = 5.dp)
+
+                    )
+                } else {
+                    Icon(
+                        Icons.Default.Web,
+                        contentDescription = stringResource(id = R.string.web_site).uppercase(),
+                        tint = AppTheme.colors.controlGraphBlueActive,
+                        modifier = Modifier
+                            .padding(start = 5.dp)
+                            .clickable(onClick = {
+                                val url =
+                                    if (!bankUrl.startsWith("http://") && !bankUrl.startsWith("https://")) "http://$bankUrl" else (bankUrl)
+                                val browserIntent =
+                                    Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                context.startActivity(browserIntent)
+                            })
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(5.dp))
@@ -153,7 +175,7 @@ fun BinInfoScreen(
 
             Row() {
                 Text(text = bankPhone, fontSize = 18.sp, color = AppTheme.colors.systemTextSecondary, fontWeight = FontWeight.Bold)
-                if (!callPermissionState.status.isGranted) {
+                if (!callPermissionState.status.isGranted || bankPhone == "null") {
                     Icon(
                         Icons.Default.Phone,
                         contentDescription = stringResource(id = R.string.phone).uppercase(),
@@ -170,14 +192,24 @@ fun BinInfoScreen(
                         Icons.Default.Phone,
                         contentDescription = stringResource(id = R.string.phone).uppercase(),
                         tint = AppTheme.colors.controlGraphBlueActive,
+                        modifier = if (bankPhone != "null") {
+                            Modifier
+                                .padding(start = 5.dp)
+                                .clickable(onClick = {
+                                    val intent =
+                                        Intent(Intent.ACTION_CALL, Uri.parse("tel:$bankPhone"))
+                                    context.startActivity(intent)
+                                })
+                        } else {
+                            Modifier
+                                .padding(start = 5.dp)
+                                .clickable(onClick = {
+                                    val intent =
+                                        Intent(Intent.ACTION_CALL, Uri.parse("tel:$bankPhone"))
+                                    context.startActivity(intent)
+                                })
+                        }
 
-                        modifier = Modifier
-                            .padding(start = 5.dp)
-                            .clickable(onClick = {
-                                val intent =
-                                    Intent(Intent.ACTION_CALL, Uri.parse("tel:$bankPhone"))
-                                context.startActivity(intent)
-                            })
                     )
                 }
             }
@@ -187,7 +219,7 @@ fun BinInfoScreen(
             Dialog(
                 onDismissRequest = {},
                 content = {
-                    CustomAllertDialog(
+                    CustomAlertDialog(
                         title = stringResource(id = R.string.permission_title),
                         message = stringResource(id = R.string.permission_message),
                         confermButtonText = stringResource(id = R.string.permission_conferm_bt),

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_title">Внимание</string>
+    <string name="no_bin">Bin с номером “%1$s” не найден!</string>
+    <string name="enter_string_error">Минимальная длинна строки для поиска: 8 цифр.</string>
+</resources>

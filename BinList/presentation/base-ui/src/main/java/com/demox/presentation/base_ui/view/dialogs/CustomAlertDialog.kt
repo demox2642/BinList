@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.demox.presentation.base_ui.R
 
 @Composable
-fun CustomAllertDialog(
+fun CustomAlertDialog(
     modifier: Modifier = Modifier,
     title: String,
     message: String,

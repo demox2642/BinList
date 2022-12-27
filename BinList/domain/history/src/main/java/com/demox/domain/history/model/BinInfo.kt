@@ -9,10 +9,10 @@ data class BinInfo(
     val country_currency: String?,
     val country_latitude: Int?,
     val country_longitude: Int?,
-    val country_name: String,
+    val country_name: String?,
     val brand: String,
     val length: Int?,
     val luhn: Boolean?,
     val scheme: String,
-    val type: String
+    val type: String?
 )

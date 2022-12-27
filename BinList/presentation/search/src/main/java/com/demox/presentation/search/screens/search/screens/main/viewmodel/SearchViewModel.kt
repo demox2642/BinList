@@ -21,6 +21,9 @@ class SearchViewModel @Inject constructor(
     private val _errorDialogState = MutableStateFlow(false)
     val errorDialogState = _errorDialogState.asStateFlow()
 
+    private val _noBin = MutableStateFlow(false)
+    val noBin = _noBin.asStateFlow()
+
     private val _binSearchText = MutableStateFlow("")
     val binSearchText = _binSearchText.asStateFlow()
 
@@ -31,7 +34,9 @@ class SearchViewModel @Inject constructor(
     val buttonState = _buttonState.asStateFlow()
 
     fun onBinSearchTextChange(text: String) {
-        _binSearchText.value = text.replace("-", "").replace("*", "").replace("+", "").replace(".", "").replace(",", "").replace(" ", "")
+        if (text.length <= 16) {
+            _binSearchText.value = text.replace("-", "").replace("*", "").replace("+", "").replace(".", "").replace(",", "").replace(" ", "")
+        }
     }
 
     fun searchBinInfo() {
@@ -42,8 +47,20 @@ class SearchViewModel @Inject constructor(
                 searchUseCase.getBinList(_binSearchText.value).collectLatest {
                     Log.e("VM", "$it")
                     _binInfo.value = it
+                    if (it == null) {
+                        _noBin.value = true
+                    }
                 }
             }
         }
+    }
+
+    fun noBinDialogDis() {
+        _binSearchText.value = ""
+        _noBin.value = false
+    }
+
+    fun noErrorDialog() {
+        _errorDialogState.value = false
     }
 }
